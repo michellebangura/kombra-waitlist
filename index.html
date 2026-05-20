@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kombra — Every moment counts.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FFF9F2;
+      --sand: #F3EBE1;
+      --stone: #E7E5E4;
+      --terra: #CA5C3B;
+      --terra-light: #E8845A;
+      --forest: #1C1917;
+      --muted: #78716C;
+      --datum: #4338CA;
+      --check-1: #0EA5E9;
+      --check-2: #F59E0B;
+      --check-3: #8B5CF6;
+      --check-4: #F43F5E;
+      --check-5: #10B981;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--forest);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .datum-line {
+      height: 2px;
+      background: var(--datum);
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    nav {
+      position: fixed;
+      top: 2px;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,249,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(231,229,228,0.5);
+    }
+
+    .nav-wordmark {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--forest);
+    }
+
+    .nav-cta {
+      background: var(--terra);
+      color: #FFF9F2;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 200ms;
+    }
+    .nav-cta:hover { background: var(--terra-light); }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    .hero-left {
+      padding: 80px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s ease both 0.1s;
+    }
+
+    .hero-headline {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--forest);
+      margin-bottom: 12px;
+      animation: fadeUp 0.6s ease both 0.2s;
+    }
+
+    .hero-headline em {
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 480px;
+      animation: fadeUp 0.6s ease both 0.35s;
+    }
+
+    .hero-sub strong { color: var(--forest); font-weight: 600; }
+
+    .waitlist-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 420px;
+      animation: fadeUp 0.6s ease both 0.5s;
+    }
+
+    .form-row { display: flex; gap: 8px; }
+
+    .waitlist-form input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 2px solid var(--stone);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      background: white;
+      color: var(--forest);
+      outline: none;
+      transition: border-color 200ms;
+    }
+    .waitlist-form input:focus { border-color: var(--terra); }
+    .waitlist-form input::placeholder { color: var(--muted); }
+
+    .waitlist-form button {
+      padding: 14px 28px;
+      background: var(--forest);
+      color: var(--cream);
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 200ms;
+      white-space: nowrap;
+    }
+    .waitlist-form button:hover { background: var(--terra); }
+
+    .form-note { font-size: 12px; color: var(--muted); }
+
+    .form-success {
+      display: none;
+      background: rgba(16,185,129,0.1);
+      border: 2px solid #10B981;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #065F46;
+    }
+
+    .hero-right {
+      background: var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 32px;
+      overflow: hidden;
+    }
+
+    .phone-wrap { display: flex; gap: 16px; align-items: flex-start; }
+
+    .phone {
+      width: 200px;
+      background: white;
+      border-radius: 28px;
+      border: 2px solid #D6D3D1;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .phone.offset { margin-top: 48px; }
+
+    .phone-notch {
+      background: var(--forest);
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .notch-pill { width: 56px; height: 5px; border-radius: 999px; background: #3D3533; }
+    .phone-datum { height: 2px; background: var(--datum); }
+    .phone-screen { background: var(--cream); padding: 12px 10px; min-height: 340px; }
+
+    .mock-greeting { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; color: var(--forest); }
+    .mock-date { font-size: 10px; color: var(--muted); margin-bottom: 12px; }
+
+    .mock-child-card {
+      background: white;
+      border: 2px solid var(--stone);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .mock-child-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
+    .mock-child-age { font-size: 9px; color: var(--muted); margin-bottom: 7px; }
+    .mock-interest {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--sand); padding: 2px 7px; border-radius: 999px;
+      font-size: 9px; font-weight: 600; margin-bottom: 8px;
+    }
+    .mock-interest-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); }
+    .mock-skill { font-size: 10px; font-weight: 500; color: var(--forest); margin-bottom: 8px; }
+    .mock-btn { display: block; background: var(--terra); color: white; padding: 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; }
+
+    .mock-section-label { font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+
+    .mock-domain-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .mock-domain-name { font-size: 9px; font-weight: 500; width: 40px; flex-shrink: 0; }
+    .mock-bar-wrap { flex: 1; height: 4px; background: var(--stone); border-radius: 999px; overflow: hidden; }
+    .mock-bar { height: 100%; border-radius: 999px; }
+    .mock-bar.think { background: var(--check-1); }
+    .mock-bar.relate { background: var(--check-4); }
+    .mock-bar.move { background: var(--check-5); }
+    .mock-bar-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--muted); width: 18px; text-align: right; }
+
+    .mock-lesson-card { background: white; border: 2px solid var(--stone); border-radius: 10px; padding: 10px; margin-bottom: 7px; }
+    .mock-lesson-meta { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .mock-lesson-title { font-family: 'Fraunces', serif; font-size: 11px; font-weight: 600; color: var(--forest); line-height: 1.3; margin-bottom: 4px; }
+    .mock-lesson-source { font-size: 8px; color: var(--muted); margin-bottom: 8px; }
+    .mock-lesson-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 7px; border-top: 1px solid var(--stone); }
+    .mock-lesson-checks { display: flex; align-items: center; gap: 4px; font-size: 8px; font-weight: 700; }
+    .mock-add { font-size: 8px; font-weight: 600; color: var(--terra); }
+
+    section { padding: 100px 48px; }
+
+    .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra); margin-bottom: 16px; }
+    .section-headline { font-family: 'Fraunces', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: var(--forest); margin-bottom: 16px; }
+    .section-sub { font-size: 17px; color: var(--muted); line-height: 1.65; max-width: 560px; margin-bottom: 48px; }
+
+    .how-section { background: var(--forest); }
+    .how-section .section-eyebrow { color: var(--terra-light); }
+    .how-section .section-headline { color: var(--cream); }
+    .how-section .section-sub { color: rgba(255,249,242,0.6); }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step { padding: 28px; background: rgba(255,249,242,0.05); border: 1px solid rgba(255,249,242,0.1); border-radius: 14px; }
+    .step-num { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 900; color: var(--terra); opacity: 0.6; line-height: 1; margin-bottom: 14px; }
+    .step-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
+    .step-desc { font-size: 13px; color: rgba(255,249,242,0.5); line-height: 1.65; }
+
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .feature-card { padding: 28px; background: white; border: 2px solid var(--stone); border-radius: 14px; }
+    .feature-card.accent { background: var(--sand); border-color: transparent; }
+    .feature-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--terra); margin-bottom: 14px; display: flex; align-items: center; justify-content: center; }
+    .feature-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--forest); margin-bottom: 8px; }
+    .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    .survey-section { background: var(--sand); }
+    .survey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .survey-q { padding: 20px; background: white; border: 2px solid var(--stone); border-radius: 10px; }
+    .survey-q label { display: block; font-size: 13px; font-weight: 600; color: var(--forest); margin-bottom: 8px; }
+    .survey-q select, .survey-q textarea, .survey-q input[type="text"] { width: 100%; padding: 9px 11px; border: 2px solid var(--stone); border-radius: 6px; font-size: 13px; font-family: 'Inter', sans-serif; color: var(--forest); background: var(--cream); outline: none; transition: border-color 200ms; }
+    .survey-q select:focus, .survey-q textarea:focus, .survey-q input[type="text"]:focus { border-color: var(--terra); }
+    .survey-q textarea { resize: vertical; min-height: 72px; }
+    .survey-q.wide { grid-column: span 2; }
+    .survey-checks { display: flex; flex-direction: column; gap: 7px; }
+    .check-opt { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--forest); }
+    .check-opt input { accent-color: var(--terra); width: 15px; height: 15px; }
+    .survey-submit { grid-column: span 2; }
+    .survey-submit button { padding: 13px 28px; background: var(--terra); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 200ms; }
+    .survey-submit button:hover { background: var(--terra-light); }
+
+    .frameworks { background: var(--cream); }
+    .framework-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .framework-tag { padding: 7px 14px; background: white; border: 2px solid var(--stone); border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--forest); }
+    .framework-tag.active { background: var(--terra); color: white; border-color: var(--terra); }
+
+    .tlm-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 40px; }
+    .tlm-card { padding: 24px; border-radius: 14px; border: 2px solid var(--stone); }
+    .tlm-icon { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 900; margin-bottom: 10px; }
+    .tlm-card.think .tlm-icon { color: var(--check-1); }
+    .tlm-card.relate .tlm-icon { color: var(--check-4); }
+    .tlm-card.move .tlm-icon { color: var(--check-5); }
+    .tlm-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--forest); margin-bottom: 6px; }
+    .tlm-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .tlm-domains { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .tlm-domain { padding: 2px 7px; background: var(--sand); border-radius: 3px; font-size: 9px; font-weight: 600; color: var(--muted); }
+
+    .final-cta { background: var(--forest); text-align: center; padding: 120px 48px; }
+    .final-cta .section-headline { color: var(--cream); max-width: 560px; margin: 0 auto 14px; }
+    .final-cta .section-sub { color: rgba(255,249,242,0.55); margin: 0 auto 44px; text-align: center; }
+    .final-form { display: flex; gap: 8px; max-width: 400px; margin: 0 auto; justify-content: center; }
+    .final-form input { flex: 1; padding: 13px 15px; border: 2px solid rgba(255,249,242,0.15); border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; background: rgba(255,249,242,0.08); color: var(--cream); outline: none; }
+    .final-form input::placeholder { color: rgba(255,249,242,0.35); }
+    .final-form input:focus { border-color: var(--terra); }
+    .final-form button { padding: 13px 22px; background: var(--terra); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; }
+
+    footer { background: var(--forest); padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,249,242,0.08); }
+    .footer-mark { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--cream); }
+    .footer-note { font-size: 11px; color: rgba(255,249,242,0.3); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 360px; }
+      .steps, .features-grid, .survey-grid, .tlm-cards { grid-template-columns: 1fr; }
+      .survey-q.wide, .survey-submit { grid-column: span 1; }
+      nav { padding: 14px 20px; }
+      section { padding: 60px 20px; }
+      .hero-left { padding: 60px 20px; }
+      .form-row, .final-form { flex-direction: column; }
+      footer { flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="datum-line"></div>
+
+<nav>
+  <div class="nav-wordmark">Kombra</div>
+  <a class="nav-cta" href="#waitlist">Join the beta</a>
+</nav>
+
+<section class="hero" id="waitlist">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Summer 2026 Beta — Opens in 2 weeks</div>
+    <h1 class="hero-headline">Every moment<br><em>counts.</em></h1>
+    <p class="hero-sub">
+      See exactly where your child is, where they're heading, and what to do about it — with activities from everywhere quality enrichment lives, mapped to their development, scheduled in the time you have.
+      <br><br>
+      <strong>Free beta. Limited spots. Summer starts now.</strong>
+    </p>
+    <form class="waitlist-form" name="waitlist" netlify netlify-honeypot="bot-field" onsubmit="handleWaitlist(event)">
+      <input type="hidden" name="form-name" value="waitlist">
+      <p style="display:none"><input name="bot-field"></p>
+      <div class="form-row">
+        <input type="email" name="email" placeholder="Your email address" required>
+        <button type="submit">Join waitlist</button>
+      </div>
+      <p class="form-note">No spam. Beta invite in 2 weeks. Unsubscribe anytime.</p>
+      <div class="form-success" id="waitlist-success">✓ You're on the list. Beta invite coming soon.</div>
+    </form>
+  </div>
+
+  <div class="hero-right">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"><div class="notch-pill"></div></div>
+        <div class="phone-datum"></div>
+        <div class="phone-screen">
+          <div class="mock-greeting">Good morning</div>
+          <div class="mock-date">Saturday · June 28</div>
+          <div class="mock-child-card">
+            <div class="mock-child-name">Zain</div>
+            <div class="mock-child-age">4 years 6 months</div>
+            <div class="mock-interest"><div class="mock-interest-dot"></div>Dinosaurs</div>
+            <div class="mock-skill">Working on: Phoneme blending</div>
+            <div class="mock-btn">Start a session →</div>
+          </div>
+          <div class="mock-section-label">Development snapshot</div>
+          <div class="mock-domain-row">
+            <div class="mock-domain-name">Think</div>
+            <div class="mock-bar-wrap"><div class="mock-bar think" style="width:62%"></div></div>
+            <div class="mock-bar-label">3.1</div>
+          </div>
+          <div class="mock-domain-row">
+            <div class="mock-domain-name">Relate</div>
+            <div class="mock-bar-wrap"><div class="mock-bar relate" style="width:78%"></div></div>
+            <div class="mock-bar-label">3.9</div>
+          </div>
+          <div class="mock-domain-row">
+            <div class="mock-domain-name">Move</div>
+            <div class="mock-bar-wrap"><div class="mock-bar move" style="width:85%"></div></div>
+            <div class="mock-bar-label">4.2</div>
+          </div>
+          <div class="mock-section-label" style="margin-top:10px">⚠ Needs attention</div>
+          <div style="background:rgba(202,92,59,0.1);border:1px solid rgba(202,92,59,0.25);border-radius:7px;padding:8px;font-size:9px;color:#7C2D12;font-weight:500;line-height:1.4;">Literacy — Phoneme awareness below expected range for 54 months</div>
+        </div>
+      </div>
+      <div class="phone offset">
+        <div class="phone-notch"><div class="notch-pill"></div></div>
+        <div class="phone-datum"></div>
+        <div class="phone-screen">
+          <div class="mock-section-label">Lesson library</div>
+          <div style="background:var(--sand);border-radius:7px;padding:7px 9px;font-size:9px;color:var(--muted);margin-bottom:10px;">🔍 Search for Zain...</div>
+          <div class="mock-lesson-card">
+            <div class="mock-lesson-meta"><span>Literacy · 3–5</span><span>Khan Kids</span></div>
+            <div class="mock-lesson-title">Letter sounds: Beginning phonemes</div>
+            <div class="mock-lesson-source">free</div>
+            <div class="mock-lesson-foot">
+              <div class="mock-lesson-checks"><svg width="12" height="12" viewBox="0 0 40 40" id="b1"></svg> 4.2 / 5</div>
+              <div class="mock-add">+ Calendar</div>
+            </div>
+          </div>
+          <div class="mock-lesson-card">
+            <div class="mock-lesson-meta"><span>Literacy · 4–6</span><span>TPT</span></div>
+            <div class="mock-lesson-title">Rhyming rockets: Phonemic awareness</div>
+            <div class="mock-lesson-source">$3.50</div>
+            <div class="mock-lesson-foot">
+              <div class="mock-lesson-checks"><svg width="12" height="12" viewBox="0 0 40 40" id="b2"></svg> Not scored</div>
+              <div class="mock-add">Score it →</div>
+            </div>
+          </div>
+          <div class="mock-lesson-card">
+            <div class="mock-lesson-meta"><span>Literacy · 3–5</span><span>PBS Kids</span></div>
+            <div class="mock-lesson-title">Word families with Elmo</div>
+            <div class="mock-lesson-source">free</div>
+            <div class="mock-lesson-foot">
+              <div class="mock-lesson-checks"><svg width="12" height="12" viewBox="0 0 40 40" id="b3"></svg> 5.0 / 5</div>
+              <div class="mock-add">+ Calendar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="section-eyebrow">How it works</div>
+  <h2 class="section-headline">Built around your child.<br>Ready for your Saturday.</h2>
+  <p class="section-sub">Tell us who your child is. We show you where they are, where to go next, and what to do about it.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Build your child's profile</div>
+      <p class="step-desc">Age, interests, any developmental notes. Four minutes. The system maps their development against CDC milestones, CASEL standards, and grade-level academic frameworks immediately.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">See where they are and what's next</div>
+      <p class="step-desc">A clear view of where your child is strong, where they need more work, and their rate of progress. Not a score — a trajectory. Updated every time you log an activity.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Find it. Score it. Put it on the calendar.</div>
+      <p class="step-desc">Quality enrichment from Khan Academy, TPT, PBS, museums, libraries, and more. Every activity tagged to developmental domains. Every activity scoreable by Five Checks. Placed on a calendar tied to your child's goals.</p>
+    </div>
+  </div>
+</section>
+
+<section class="frameworks">
+  <div class="section-eyebrow">Built on validated science</div>
+  <h2 class="section-headline">Real frameworks.<br>Not invented categories.</h2>
+  <p class="section-sub">Your child's development mapped against the standards pediatricians, schools, and researchers actually use.</p>
+  <div class="framework-tags">
+    <div class="framework-tag active">CDC Developmental Milestones</div>
+    <div class="framework-tag">CASEL Social-Emotional Learning</div>
+    <div class="framework-tag">Common Core ELA & Math</div>
+    <div class="framework-tag">Next Generation Science Standards</div>
+    <div class="framework-tag">Head Start ELOF</div>
+    <div class="framework-tag">National PE Standards</div>
+  </div>
+  <div class="tlm-cards">
+    <div class="tlm-card think">
+      <div class="tlm-icon">T</div>
+      <div class="tlm-title">Think</div>
+      <p class="tlm-desc">How your child reasons, reads, counts, and makes sense of the world.</p>
+      <div class="tlm-domains">
+        <div class="tlm-domain">Literacy</div>
+        <div class="tlm-domain">Numeracy</div>
+        <div class="tlm-domain">Science</div>
+        <div class="tlm-domain">Executive Function</div>
+        <div class="tlm-domain">Reasoning</div>
+      </div>
+    </div>
+    <div class="tlm-card relate">
+      <div class="tlm-icon">R</div>
+      <div class="tlm-title">Relate</div>
+      <p class="tlm-desc">How your child connects with others, manages emotions, and communicates.</p>
+      <div class="tlm-domains">
+        <div class="tlm-domain">Social-Emotional</div>
+        <div class="tlm-domain">Communication</div>
+        <div class="tlm-domain">Empathy</div>
+        <div class="tlm-domain">Self-Regulation</div>
+      </div>
+    </div>
+    <div class="tlm-card move">
+      <div class="tlm-icon">M</div>
+      <div class="tlm-title">Move</div>
+      <p class="tlm-desc">How your child develops physically — from big movements to fine motor control.</p>
+      <div class="tlm-domains">
+        <div class="tlm-domain">Gross Motor</div>
+        <div class="tlm-domain">Fine Motor</div>
+        <div class="tlm-domain">Sensory</div>
+        <div class="tlm-domain">Physical Health</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--sand);padding:100px 48px;">
+  <div class="section-eyebrow">Features</div>
+  <h2 class="section-headline">Everything in one place.</h2>
+  <p class="section-sub">The library. The map. The calendar. The caregiver plan.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg></div>
+      <div class="feature-title">Development dashboard</div>
+      <p class="feature-desc">Your child's progress across every domain, mapped to validated frameworks. Full view or Think / Relate / Move. See where they're strong. See where they need work. See the rate of movement over time.</p>
+    </div>
+    <div class="feature-card accent">
+      <div class="feature-icon" style="background:var(--forest)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <div class="feature-title">Lesson library</div>
+      <p class="feature-desc">Every quality enrichment activity from Khan Academy, Teachers Pay Teachers, PBS Kids, museum curricula, library programs — in one place. Tagged by age and domain. Direct link to the provider. Every activity scoreable by Five Checks.</p>
+    </div>
+    <div class="feature-card accent">
+      <div class="feature-icon" style="background:var(--datum)"><svg width="18" height="18" viewBox="0 0 40 40" id="feat-badge"></svg></div>
+      <div class="feature-title">Five Checks quality scoring</div>
+      <p class="feature-desc">Score any activity across five dimensions: Rigor, Inclusivity, Perspective, Empathy, Critical Thinking. Score it yourself in 30 seconds. Add context that turns a 2.5 into a 5. The library gets better as parents contribute.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="feature-title">Developmental calendar</div>
+      <p class="feature-desc">Activities placed against developmental goals and the time you have. The calendar becomes a developmental record as you log outcomes.</p>
+    </div>
+    <div class="feature-card" style="grid-column:span 2">
+      <div class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="feature-title">Caregiver mode — no login, no decisions</div>
+      <p class="feature-desc">Share a 6-character code. Grandma opens the link. She sees today's plan — already made for her. What to do. What to say to start. What success looks like. What to do if it goes sideways. She executes. She doesn't decide. She feels capable. You see what happened.</p>
+    </div>
+  </div>
+</section>
+
+<section class="survey-section">
+  <div class="section-eyebrow">Help us build this for you</div>
+  <h2 class="section-headline">Tell us what you need.</h2>
+  <p class="section-sub">Real parent feedback goes directly into what we ship first.</p>
+  <form class="survey-grid" name="survey" netlify netlify-honeypot="bot-field-survey" onsubmit="handleSurvey(event)">
+    <input type="hidden" name="form-name" value="survey">
+    <p style="display:none"><input name="bot-field-survey"></p>
+    <div class="survey-q">
+      <label>How old is your child?</label>
+      <select name="child_age">
+        <option value="">Select age range</option>
+        <option>Under 2</option><option>2–4 years</option><option>4–6 years</option>
+        <option>6–9 years</option><option>9–12 years</option><option>12+ years</option>
+        <option>Multiple ages</option>
+      </select>
+    </div>
+    <div class="survey-q">
+      <label>Any neurodevelopmental differences?</label>
+      <select name="neurodivergent">
+        <option value="">Select</option>
+        <option>No</option><option>Yes — autism</option><option>Yes — ADHD</option>
+        <option>Yes — sensory processing</option><option>Yes — other</option>
+        <option>Under evaluation</option><option>Prefer not to say</option>
+      </select>
+    </div>
+    <div class="survey-q wide">
+      <label>What's your biggest frustration finding quality activities for your child?</label>
+      <textarea name="frustration" placeholder="Be honest — what takes the most time or feels hardest?"></textarea>
+    </div>
+    <div class="survey-q wide">
+      <label>Which would help you most? (Select all that apply)</label>
+      <div class="survey-checks">
+        <label class="check-opt"><input type="checkbox" name="need" value="development_view"> Seeing where my child is developmentally and what's next</label>
+        <label class="check-opt"><input type="checkbox" name="need" value="lesson_library"> All quality activities from different sources in one place</label>
+        <label class="check-opt"><input type="checkbox" name="need" value="quality_filter"> A reliable quality filter so I know what's actually good</label>
+        <label class="check-opt"><input type="checkbox" name="need" value="calendar"> A calendar connecting activities to developmental goals</label>
+        <label class="check-opt"><input type="checkbox" name="need" value="caregiver"> Tools for grandparents, sitters, others to engage meaningfully</label>
+        <label class="check-opt"><input type="checkbox" name="need" value="struggle_areas"> Knowing where my child struggles and what to do about it</label>
+      </div>
+    </div>
+    <div class="survey-q">
+      <label>What would you pay per month?</label>
+      <select name="price_point">
+        <option value="">Select</option>
+        <option>Nothing — I expect free</option><option>$5–10/month</option>
+        <option>$10–20/month</option><option>$20–30/month</option>
+        <option>More if it's genuinely useful</option>
+      </select>
+    </div>
+    <div class="survey-q">
+      <label>Your email (to receive beta access)</label>
+      <input type="text" name="email" placeholder="email@example.com">
+    </div>
+    <div class="survey-q wide">
+      <label>Anything else?</label>
+      <textarea name="other" placeholder="Feature requests, concerns, what you've tried and why it didn't work..."></textarea>
+    </div>
+    <div class="survey-submit">
+      <button type="submit">Submit feedback</button>
+      <div class="form-success" id="survey-success" style="margin-top:12px;">✓ Thank you — this goes straight into our planning.</div>
+    </div>
+  </form>
+</section>
+
+<section class="final-cta">
+  <h2 class="section-headline">Summer is here.<br>Parents needed this yesterday.</h2>
+  <p class="section-sub">Free beta. Opens in 2 weeks. Limited spots.</p>
+  <form class="final-form" name="waitlist-bottom" netlify onsubmit="handleWaitlistBottom(event)">
+    <input type="hidden" name="form-name" value="waitlist-bottom">
+    <input type="email" name="email" placeholder="Your email address" required>
+    <button type="submit">Join beta</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-mark">Kombra</div>
+  <div class="footer-note">© 2026 Kombra Group · Building for families, by a family.</div>
+</footer>
+
+<script>
+const colors=['#0EA5E9','#F59E0B','#8B5CF6','#F43F5E','#10B981'];
+const empty='#E7E5E4';
+function badge(el,sz,scored){
+  if(!el)return;
+  const cx=sz/2,cy=sz/2,oR=sz*.44,iR=sz*.26,gap=6;
+  el.setAttribute('width',sz);el.setAttribute('height',sz);el.setAttribute('viewBox',`0 0 ${sz} ${sz}`);
+  let h='';
+  for(let i=0;i<5;i++){
+    const s=i*72+gap/2,e=(i+1)*72-gap/2;
+    const p=(deg,r)=>{const a=(deg-90)*Math.PI/180;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];};
+    const[ox1,oy1]=p(s,oR),[ox2,oy2]=p(e,oR),[ix1,iy1]=p(s,iR),[ix2,iy2]=p(e,iR);
+    h+=`<path d="M${ox1},${oy1} A${oR},${oR} 0 0 1 ${ox2},${oy2} L${ix2},${iy2} A${iR},${iR} 0 0 0 ${ix1},${iy1} Z" fill="${scored[i]?colors[i]:empty}"/>`;
+  }
+  el.innerHTML=h;
+}
+badge(document.getElementById('b1'),12,[true,true,true,true,false]);
+badge(document.getElementById('b2'),12,[false,false,false,false,false]);
+badge(document.getElementById('b3'),12,[true,true,true,true,true]);
+badge(document.getElementById('feat-badge'),18,[true,true,true,true,true]);
+
+function postForm(formData){
+  return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(formData).toString()});
+}
+function handleWaitlist(e){
+  e.preventDefault();
+  postForm(new FormData(e.target)).finally(()=>{
+    document.getElementById('waitlist-success').style.display='block';
+    e.target.reset();
+  });
+}
+function handleSurvey(e){
+  e.preventDefault();
+  postForm(new FormData(e.target)).finally(()=>{
+    document.getElementById('survey-success').style.display='block';
+  });
+}
+function handleWaitlistBottom(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('button');
+  btn.textContent="✓ You're in!";
+  btn.style.background='#10B981';
+  postForm(new FormData(e.target));
+}
+</script>
+</body>
+</html>
