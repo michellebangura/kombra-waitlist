@@ -3,246 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kombra — Every moment counts.</title>
+  <title>Hew — Every moment counts.</title>
+  <meta name="description" content="See exactly where your child is, where they're heading, and what to do about it. Hew maps your child's development against real frameworks and brings every quality enrichment activity into one place.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --cream: #FFF9F2;
-      --sand: #F3EBE1;
-      --stone: #E7E5E4;
-      --terra: #CA5C3B;
-      --terra-light: #E8845A;
-      --forest: #1C1917;
-      --muted: #78716C;
-      --datum: #4338CA;
-      --check-1: #0EA5E9;
-      --check-2: #F59E0B;
-      --check-3: #8B5CF6;
-      --check-4: #F43F5E;
-      --check-5: #10B981;
+      --cream: #FFF9F2; --sand: #F3EBE1; --stone: #E7E5E4;
+      --terra: #CA5C3B; --terra-light: #E8845A;
+      --forest: #1C1917; --muted: #78716C; --datum: #4338CA;
+      --check-1: #0EA5E9; --check-2: #F59E0B; --check-3: #8B5CF6;
+      --check-4: #F43F5E; --check-5: #10B981;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--cream);
-      color: var(--forest);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    .datum-line {
-      height: 2px;
-      background: var(--datum);
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 100;
-    }
-
-    nav {
-      position: fixed;
-      top: 2px;
-      left: 0;
-      right: 0;
-      z-index: 99;
-      padding: 16px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255,249,242,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(231,229,228,0.5);
-    }
-
-    .nav-wordmark {
-      font-family: 'Fraunces', serif;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--forest);
-    }
-
-    .nav-cta {
-      background: var(--terra);
-      color: #FFF9F2;
-      padding: 10px 22px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 200ms;
-    }
+    body { background: var(--cream); color: var(--forest); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+    .datum-line { height: 2px; background: var(--datum); width: 100%; position: fixed; top: 0; left: 0; z-index: 100; }
+    nav { position: fixed; top: 2px; left: 0; right: 0; z-index: 99; padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,249,242,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(231,229,228,0.5); }
+    .nav-wordmark { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--forest); }
+    .nav-cta { background: var(--terra); color: #FFF9F2; padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 200ms; }
     .nav-cta:hover { background: var(--terra-light); }
-
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 80px;
-    }
-
-    .hero-left {
-      padding: 80px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--terra);
-      margin-bottom: 20px;
-      animation: fadeUp 0.5s ease both 0.1s;
-    }
-
-    .hero-headline {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(40px, 5vw, 64px);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--forest);
-      margin-bottom: 12px;
-      animation: fadeUp 0.6s ease both 0.2s;
-    }
-
-    .hero-headline em {
-      font-weight: 300;
-      font-style: italic;
-      color: var(--muted);
-    }
-
-    .hero-sub {
-      font-size: 18px;
-      line-height: 1.65;
-      color: var(--muted);
-      margin-bottom: 40px;
-      max-width: 480px;
-      animation: fadeUp 0.6s ease both 0.35s;
-    }
-
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; }
+    .hero-left { padding: 80px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra); margin-bottom: 20px; animation: fadeUp 0.5s ease both 0.1s; }
+    .hero-headline { font-family: 'Fraunces', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; color: var(--forest); margin-bottom: 12px; animation: fadeUp 0.6s ease both 0.2s; }
+    .hero-headline em { font-weight: 300; font-style: italic; color: var(--muted); }
+    .hero-sub { font-size: 18px; line-height: 1.65; color: var(--muted); margin-bottom: 40px; max-width: 480px; animation: fadeUp 0.6s ease both 0.35s; }
     .hero-sub strong { color: var(--forest); font-weight: 600; }
-
-    .waitlist-form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 420px;
-      animation: fadeUp 0.6s ease both 0.5s;
-    }
-
+    .waitlist-form { display: flex; flex-direction: column; gap: 12px; max-width: 420px; animation: fadeUp 0.6s ease both 0.5s; }
     .form-row { display: flex; gap: 8px; }
-
-    .waitlist-form input {
-      flex: 1;
-      padding: 14px 16px;
-      border: 2px solid var(--stone);
-      border-radius: 8px;
-      font-size: 15px;
-      font-family: 'Inter', sans-serif;
-      background: white;
-      color: var(--forest);
-      outline: none;
-      transition: border-color 200ms;
-    }
+    .waitlist-form input { flex: 1; padding: 14px 16px; border: 2px solid var(--stone); border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; background: white; color: var(--forest); outline: none; transition: border-color 200ms; }
     .waitlist-form input:focus { border-color: var(--terra); }
     .waitlist-form input::placeholder { color: var(--muted); }
-
-    .waitlist-form button {
-      padding: 14px 28px;
-      background: var(--forest);
-      color: var(--cream);
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      transition: background 200ms;
-      white-space: nowrap;
-    }
+    .waitlist-form button { padding: 14px 28px; background: var(--forest); color: var(--cream); border: none; border-radius: 8px; font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 200ms; white-space: nowrap; }
     .waitlist-form button:hover { background: var(--terra); }
-
     .form-note { font-size: 12px; color: var(--muted); }
-
-    .form-success {
-      display: none;
-      background: rgba(16,185,129,0.1);
-      border: 2px solid #10B981;
-      border-radius: 8px;
-      padding: 16px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #065F46;
-    }
-
-    .hero-right {
-      background: var(--sand);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 32px;
-      overflow: hidden;
-    }
-
+    .form-success { display: none; background: rgba(16,185,129,0.1); border: 2px solid #10B981; border-radius: 8px; padding: 16px; font-size: 14px; font-weight: 600; color: #065F46; }
+    .hero-right { background: var(--sand); display: flex; align-items: center; justify-content: center; padding: 60px 32px; overflow: hidden; }
     .phone-wrap { display: flex; gap: 16px; align-items: flex-start; }
-
-    .phone {
-      width: 200px;
-      background: white;
-      border-radius: 28px;
-      border: 2px solid #D6D3D1;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.12);
-      overflow: hidden;
-      flex-shrink: 0;
-    }
+    .phone { width: 200px; background: white; border-radius: 28px; border: 2px solid #D6D3D1; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; flex-shrink: 0; }
     .phone.offset { margin-top: 48px; }
-
-    .phone-notch {
-      background: var(--forest);
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .phone-notch { background: var(--forest); height: 22px; display: flex; align-items: center; justify-content: center; }
     .notch-pill { width: 56px; height: 5px; border-radius: 999px; background: #3D3533; }
     .phone-datum { height: 2px; background: var(--datum); }
     .phone-screen { background: var(--cream); padding: 12px 10px; min-height: 340px; }
-
     .mock-greeting { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; color: var(--forest); }
     .mock-date { font-size: 10px; color: var(--muted); margin-bottom: 12px; }
-
-    .mock-child-card {
-      background: white;
-      border: 2px solid var(--stone);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
-    }
+    .mock-child-card { background: white; border: 2px solid var(--stone); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
     .mock-child-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
     .mock-child-age { font-size: 9px; color: var(--muted); margin-bottom: 7px; }
-    .mock-interest {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--sand); padding: 2px 7px; border-radius: 999px;
-      font-size: 9px; font-weight: 600; margin-bottom: 8px;
-    }
+    .mock-interest { display: inline-flex; align-items: center; gap: 4px; background: var(--sand); padding: 2px 7px; border-radius: 999px; font-size: 9px; font-weight: 600; margin-bottom: 8px; }
     .mock-interest-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); }
     .mock-skill { font-size: 10px; font-weight: 500; color: var(--forest); margin-bottom: 8px; }
     .mock-btn { display: block; background: var(--terra); color: white; padding: 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-align: center; }
-
     .mock-section-label { font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
-
     .mock-domain-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
     .mock-domain-name { font-size: 9px; font-weight: 500; width: 40px; flex-shrink: 0; }
     .mock-bar-wrap { flex: 1; height: 4px; background: var(--stone); border-radius: 999px; overflow: hidden; }
@@ -251,7 +66,6 @@
     .mock-bar.relate { background: var(--check-4); }
     .mock-bar.move { background: var(--check-5); }
     .mock-bar-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--muted); width: 18px; text-align: right; }
-
     .mock-lesson-card { background: white; border: 2px solid var(--stone); border-radius: 10px; padding: 10px; margin-bottom: 7px; }
     .mock-lesson-meta { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
     .mock-lesson-title { font-family: 'Fraunces', serif; font-size: 11px; font-weight: 600; color: var(--forest); line-height: 1.3; margin-bottom: 4px; }
@@ -259,31 +73,25 @@
     .mock-lesson-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 7px; border-top: 1px solid var(--stone); }
     .mock-lesson-checks { display: flex; align-items: center; gap: 4px; font-size: 8px; font-weight: 700; }
     .mock-add { font-size: 8px; font-weight: 600; color: var(--terra); }
-
     section { padding: 100px 48px; }
-
     .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra); margin-bottom: 16px; }
     .section-headline { font-family: 'Fraunces', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: var(--forest); margin-bottom: 16px; }
     .section-sub { font-size: 17px; color: var(--muted); line-height: 1.65; max-width: 560px; margin-bottom: 48px; }
-
     .how-section { background: var(--forest); }
     .how-section .section-eyebrow { color: var(--terra-light); }
     .how-section .section-headline { color: var(--cream); }
     .how-section .section-sub { color: rgba(255,249,242,0.6); }
-
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .step { padding: 28px; background: rgba(255,249,242,0.05); border: 1px solid rgba(255,249,242,0.1); border-radius: 14px; }
     .step-num { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 900; color: var(--terra); opacity: 0.6; line-height: 1; margin-bottom: 14px; }
     .step-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
     .step-desc { font-size: 13px; color: rgba(255,249,242,0.5); line-height: 1.65; }
-
     .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .feature-card { padding: 28px; background: white; border: 2px solid var(--stone); border-radius: 14px; }
     .feature-card.accent { background: var(--sand); border-color: transparent; }
     .feature-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--terra); margin-bottom: 14px; display: flex; align-items: center; justify-content: center; }
     .feature-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: var(--forest); margin-bottom: 8px; }
     .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
-
     .survey-section { background: var(--sand); }
     .survey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .survey-q { padding: 20px; background: white; border: 2px solid var(--stone); border-radius: 10px; }
@@ -298,12 +106,10 @@
     .survey-submit { grid-column: span 2; }
     .survey-submit button { padding: 13px 28px; background: var(--terra); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 200ms; }
     .survey-submit button:hover { background: var(--terra-light); }
-
     .frameworks { background: var(--cream); }
     .framework-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
     .framework-tag { padding: 7px 14px; background: white; border: 2px solid var(--stone); border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--forest); }
     .framework-tag.active { background: var(--terra); color: white; border-color: var(--terra); }
-
     .tlm-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 40px; }
     .tlm-card { padding: 24px; border-radius: 14px; border: 2px solid var(--stone); }
     .tlm-icon { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 900; margin-bottom: 10px; }
@@ -314,7 +120,6 @@
     .tlm-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
     .tlm-domains { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
     .tlm-domain { padding: 2px 7px; background: var(--sand); border-radius: 3px; font-size: 9px; font-weight: 600; color: var(--muted); }
-
     .final-cta { background: var(--forest); text-align: center; padding: 120px 48px; }
     .final-cta .section-headline { color: var(--cream); max-width: 560px; margin: 0 auto 14px; }
     .final-cta .section-sub { color: rgba(255,249,242,0.55); margin: 0 auto 44px; text-align: center; }
@@ -323,13 +128,10 @@
     .final-form input::placeholder { color: rgba(255,249,242,0.35); }
     .final-form input:focus { border-color: var(--terra); }
     .final-form button { padding: 13px 22px; background: var(--terra); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; }
-
     footer { background: var(--forest); padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,249,242,0.08); }
     .footer-mark { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--cream); }
     .footer-note { font-size: 11px; color: rgba(255,249,242,0.3); }
-
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .hero-right { min-height: 360px; }
@@ -348,7 +150,7 @@
 <div class="datum-line"></div>
 
 <nav>
-  <div class="nav-wordmark">Kombra</div>
+  <div class="nav-wordmark">Hew</div>
   <a class="nav-cta" href="#waitlist">Join the beta</a>
 </nav>
 
@@ -455,7 +257,7 @@
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-title">Build your child's profile</div>
-      <p class="step-desc">Age, interests, any developmental notes. Four minutes. The system maps their development against CDC milestones, CASEL standards, and grade-level academic frameworks immediately.</p>
+      <p class="step-desc">Age, interests, any developmental notes. Four minutes. Hew maps their development against CDC milestones, CASEL standards, and grade-level academic frameworks immediately.</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
@@ -465,7 +267,7 @@
     <div class="step">
       <div class="step-num">03</div>
       <div class="step-title">Find it. Score it. Put it on the calendar.</div>
-      <p class="step-desc">Quality enrichment from Khan Academy, TPT, PBS, museums, libraries, and more. Every activity tagged to developmental domains. Every activity scoreable by Five Checks. Placed on a calendar tied to your child's goals.</p>
+      <p class="step-desc">Quality enrichment from Khan Academy, TPT, PBS, museums, libraries, and more — in one place. Tagged to developmental domains. Every activity scoreable by Five Checks. Placed on a calendar tied to your child's goals.</p>
     </div>
   </div>
 </section>
@@ -473,7 +275,7 @@
 <section class="frameworks">
   <div class="section-eyebrow">Built on validated science</div>
   <h2 class="section-headline">Real frameworks.<br>Not invented categories.</h2>
-  <p class="section-sub">Your child's development mapped against the standards pediatricians, schools, and researchers actually use.</p>
+  <p class="section-sub">Your child's development mapped against the standards pediatricians, schools, and researchers actually use — at every stage from birth through high school.</p>
   <div class="framework-tags">
     <div class="framework-tag active">CDC Developmental Milestones</div>
     <div class="framework-tag">CASEL Social-Emotional Learning</div>
@@ -523,7 +325,7 @@
 <section style="background:var(--sand);padding:100px 48px;">
   <div class="section-eyebrow">Features</div>
   <h2 class="section-headline">Everything in one place.</h2>
-  <p class="section-sub">The library. The map. The calendar. The caregiver plan.</p>
+  <p class="section-sub">The library. The developmental map. The calendar. The caregiver plan. All of it.</p>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg></div>
@@ -533,22 +335,22 @@
     <div class="feature-card accent">
       <div class="feature-icon" style="background:var(--forest)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
       <div class="feature-title">Lesson library</div>
-      <p class="feature-desc">Every quality enrichment activity from Khan Academy, Teachers Pay Teachers, PBS Kids, museum curricula, library programs — in one place. Tagged by age and domain. Direct link to the provider. Every activity scoreable by Five Checks.</p>
+      <p class="feature-desc">Every quality enrichment activity from Khan Academy, Teachers Pay Teachers, PBS Kids, museum curricula, library programs — in one place. Every activity tagged by age and developmental domain. Direct link to the provider. Five Checks scored.</p>
     </div>
     <div class="feature-card accent">
       <div class="feature-icon" style="background:var(--datum)"><svg width="18" height="18" viewBox="0 0 40 40" id="feat-badge"></svg></div>
       <div class="feature-title">Five Checks quality scoring</div>
-      <p class="feature-desc">Score any activity across five dimensions: Rigor, Inclusivity, Perspective, Empathy, Critical Thinking. Score it yourself in 30 seconds. Add context that turns a 2.5 into a 5. The library gets better as parents contribute.</p>
+      <p class="feature-desc">Every lesson is scored across five dimensions: Rigor, Inclusivity, Perspective, Empathy, Critical Thinking. AI scores lessons on ingest. Parents refine scores and add context — turning a 2.5 into a 5.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
       <div class="feature-title">Developmental calendar</div>
-      <p class="feature-desc">Activities placed against developmental goals and the time you have. The calendar becomes a developmental record as you log outcomes.</p>
+      <p class="feature-desc">Plan by the day, month, quarter, or year. Recurring classes — swim lessons, gymnastics — sit alongside one-time events and open activity slots. Your child's development drives what gets scheduled.</p>
     </div>
     <div class="feature-card" style="grid-column:span 2">
       <div class="feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       <div class="feature-title">Caregiver mode — no login, no decisions</div>
-      <p class="feature-desc">Share a 6-character code. Grandma opens the link. She sees today's plan — already made for her. What to do. What to say to start. What success looks like. What to do if it goes sideways. She executes. She doesn't decide. She feels capable. You see what happened.</p>
+      <p class="feature-desc">Share a 6-character code. Grandma opens the link. She sees today's plan — already made. What to do. What to say to start. What success looks like. What to do if it goes sideways. She executes. She doesn't decide. She feels capable. You see what happened.</p>
     </div>
   </div>
 </section>
@@ -628,8 +430,8 @@
 </section>
 
 <footer>
-  <div class="footer-mark">Kombra</div>
-  <div class="footer-note">© 2026 Kombra Group · Building for families, by a family.</div>
+  <div class="footer-mark">Hew</div>
+  <div class="footer-note">© 2026 Hew · thehew.app · Building for families, by a family.</div>
 </footer>
 
 <script>
@@ -652,30 +454,10 @@ badge(document.getElementById('b1'),12,[true,true,true,true,false]);
 badge(document.getElementById('b2'),12,[false,false,false,false,false]);
 badge(document.getElementById('b3'),12,[true,true,true,true,true]);
 badge(document.getElementById('feat-badge'),18,[true,true,true,true,true]);
-
-function postForm(formData){
-  return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(formData).toString()});
-}
-function handleWaitlist(e){
-  e.preventDefault();
-  postForm(new FormData(e.target)).finally(()=>{
-    document.getElementById('waitlist-success').style.display='block';
-    e.target.reset();
-  });
-}
-function handleSurvey(e){
-  e.preventDefault();
-  postForm(new FormData(e.target)).finally(()=>{
-    document.getElementById('survey-success').style.display='block';
-  });
-}
-function handleWaitlistBottom(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('button');
-  btn.textContent="✓ You're in!";
-  btn.style.background='#10B981';
-  postForm(new FormData(e.target));
-}
+function postForm(fd){return fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(fd).toString()});}
+function handleWaitlist(e){e.preventDefault();postForm(new FormData(e.target)).finally(()=>{document.getElementById('waitlist-success').style.display='block';e.target.reset();});}
+function handleSurvey(e){e.preventDefault();postForm(new FormData(e.target)).finally(()=>{document.getElementById('survey-success').style.display='block';});}
+function handleWaitlistBottom(e){e.preventDefault();const b=e.target.querySelector('button');b.textContent="✓ You're in!";b.style.background='#10B981';postForm(new FormData(e.target));}
 </script>
 </body>
 </html>
